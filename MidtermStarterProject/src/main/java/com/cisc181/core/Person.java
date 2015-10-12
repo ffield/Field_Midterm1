@@ -1,7 +1,10 @@
 package com.cisc181.core;
 
 import java.util.Calendar;
+import java.util.regex.Matcher;
 import java.util.Date;
+import java.util.regex.Pattern;
+
 
 /*
  * comment
@@ -84,7 +87,7 @@ public abstract class Person {
 	 */
 
 	public Person(String FirstName, String MiddleName, String LastName,
-			Date DOB, String Address, String Phone_number, String Email) {
+			Date DOB, String Address, String Phone_number, String Email) throws PersonException {
 		this.FirstName = FirstName;
 		this.MiddleName = MiddleName;
 		this.LastName = LastName;
@@ -92,7 +95,19 @@ public abstract class Person {
 		this.address = Address;
 		this.phone_number = Phone_number;
 		this.email_address = Email;
-		
+		if (this.PrintAge() > 100)
+		{
+			throw new PersonException("The DOB is invalid");
+		}
+	    Pattern p = Pattern.compile("^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$");
+	    java.util.regex.Matcher matcher = p.matcher(Phone_number);
+	    if (matcher.matches())
+	    {
+	    }
+	    else
+	    {
+	    	throw new PersonException("The Phone Number is formatted incorrectly");
+	    }
 	}
 
 	public void PrintName() {
